@@ -11,7 +11,7 @@ from datetime import time
 from flask import redirect
 import time
 import sqlite3
-import pandas as pd 
+# import pandas as pd
 
 
 app = Flask(__name__)
@@ -104,15 +104,15 @@ def viewoutline():
 	cursor = connection.cursor()
 	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL')
 	info = cursor.fetchall()
-   
+	print(str(info))
 	for row in info:
 		print(row["TITLE"])
 		print(row["KEY"])
 		key = row['KEY']
-		scenenumber = 'scene' + str(key)
-		print(scenenumber)
-		cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
-		beat = cursor.fetchall()
+	scenenumber = 'scene' + str(key)
+	print(scenenumber)
+	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
+	beat = cursor.fetchall()
 
 	return render_template('viewoutline.html', info=info, beat=beat, scenenumber=scenenumber, key=key)
 

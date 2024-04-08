@@ -11,11 +11,11 @@
 
 {% for row in info %}
 
-SC: {{row['CHAPTER']}}.{{row['SCENE']}} {{row['TITLE']}}<br>
+SC: {{row['CHAPTER']}}.{{row['SCENE']}}: {{row['TITLE']}}<br>
 LOC:{{row['LOCATION']}}<br>
 {{row['KEY']}}<br>
-{% scenenum="scene" + row['KEY'] %}
-{{scenenum}}
+
+You have: {{ scenenumber }}<br> {{ scene }}
   {% for row in beat %}
   {% if row[scenenumber] is not none %}
   {{row[scenenumber]}}<br>
