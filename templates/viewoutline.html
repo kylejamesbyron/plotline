@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>ViewOutline</title>
+
+  
+</head><body>
+<div style="text-align: center;">PLOTLINE...View Outline<br>
+<div style="text-align: left;">
+
+{% for row in info %}
+
+SC: {{row['CHAPTER']}}.{{row['SCENE']}} {{row['TITLE']}}<br>
+LOC:{{row['LOCATION']}}<br>
+{{row['KEY']}}<br>
+{% scenenum="scene" + row['KEY'] %}
+{{scenenum}}
+  {% for row in beat %}
+  {% if row[scenenumber] is not none %}
+  {{row[scenenumber]}}<br>
+  {% endif %}
+  {% endfor %}
+
+<br>
+<br>
+{% endfor %}
+
+</div>
+
+</body></html>

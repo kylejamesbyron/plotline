@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>EditScene</title>
+
+  
+</head><body>
+<div style="text-align: center;">PLOTLINE...Edit Scene<br>
+<div style="text-align: left;">
+
+{% for row in rows %}
+
+<form action="/updatescene/{{key}}" method="post">
+  SC#: <textarea input name="SCENE">{{row['SCENE']}} </textarea>
+  CH#: <textarea input name="CHAPTER">{{row['CHAPTER']}} </textarea>
+  TAGS: <textarea input name="TAGS">{{row['TAGS']}} </textarea>
+  <br>
+  TITLE: <textarea input name="TITLE">{{row['TITLE']}} </textarea>
+  LOCATION: <textarea input name='LOCATION'>{{row['LOCATION']}} </textarea>
+  <select name="ADDTAGS" id="ADDTAGS">
+  <option value="Tags">Tags</option>
+  <option value="Sex">Sex</option>
+  <option value="Church">Church</option>
+  <option value="Action">Action</option>
+  <option value="Cliffhangar">Cliffhanger</option>
+  <option value="Trust">Trust</option>
+  </select>[add]<br>
+  <br>
+  BEATS:
+  <br>
+  {% for row in beat %}
+  {% if row[scenenumber] is not none %}
+  {{row[scenenumber]}}<br>
+  {% endif %}
+  {% endfor %}
+  <br>
+  <textarea input name="BEATS"></textarea>
+  <br>
+  
+   <input name="form" value="Save" type="submit"> 
+
+</form>
+
+{% endfor %}
+
+</div>
+</div>
+
+</body></html>
