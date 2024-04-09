@@ -104,17 +104,24 @@ def viewoutline():
 	cursor = connection.cursor()
 	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL')
 	info = cursor.fetchall()
-	print(str(info))
+	print(len(info))
+	lister = []
+	beats = []
 	for row in info:
+		lister.append(row)
+		print(lister)
 		print(row["TITLE"])
 		print(row["KEY"])
 		key = row['KEY']
-	scenenumber = 'scene' + str(key)
-	print(scenenumber)
+		scenenumber = 'scene' + str(key)
+		print(scenenumber)
 	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
 	beat = cursor.fetchall()
+	for twist in beat:
+		beats.append(twist)
 
-	return render_template('viewoutline.html', info=info, beat=beat, scenenumber=scenenumber, key=key)
+
+	return render_template('viewoutline.html', info=info, beat=beat, scenenumber=scenenumber, key=key, lister=lister, beats=beats)
 
 
 
