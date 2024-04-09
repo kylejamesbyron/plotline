@@ -14,27 +14,13 @@
 SC: {{row['CHAPTER']}}.{{row['SCENE']}}: {{row['TITLE']}}<br>
 LOC:{{row['LOCATION']}}<br>
 
-
-{% for elem in lister %}
-{% if elem is not none %}
-  {% set keep = "scene" + elem[0]|string %}
-  {{ keep }}<br>
-  {% set keeplist = [] %}
-< --  {{ keeplist.append(keep) }} <--
-{% endif %}
-{% endfor %}<br>
-
-
-
-{%for twist in beats %}
-{% if twist[scenenumber] is not none %}
-{{twist[scenenumber]}}<br>
+{% for beat in beats %}
+{% set scenenumber = "scene" + row['KEY']|string %}
+{% if beat['KEY'] == row['KEY'] %}
+BEATS:<br>
+{{ beat[scenenumber] }}<br>
 {% endif %}
 {% endfor %}
-
-
-
-
 
 <br>
 <br>

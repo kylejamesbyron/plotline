@@ -14,9 +14,11 @@ import sqlite3
 # import pandas as pd
 
 
+
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
+app.jinja_env.add_extension('jinja2.ext.do')
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
@@ -43,7 +45,8 @@ def savescene():
 	connection = sqlite3.connect('projdbs/erotic.db')
 	#connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
-	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
+	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
+		VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
 	connection.commit()
 	cursor.execute('SELECT KEY FROM MAIN WHERE TITLE = ?', (title,))
 	KEY = cursor.fetchone()[0]
@@ -67,7 +70,8 @@ def editscene(KEY):
 	#maybe move the following line
 	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
 	beat = cursor.fetchall()
-	return render_template('editscene.html', rows=rows, key=key, beat=beat, scenenumber=scenenumber)
+	return render_template('editscene.html', rows=rows, key=key, beat=beat,\
+	 scenenumber=scenenumber)
 @app.route('/updatescene/<key>', methods = ['POST'])
 def updatescene(key):
 	scenenumber = 'scene' + str(key)
@@ -83,45 +87,35 @@ def updatescene(key):
 	cursor = connection.cursor()
 	cursor.execute('SELECT * FROM SCENE WHERE "&scenenumber" IS NOT NULL')
 	beat = cursor.fetchall()
-	cursor.execute('UPDATE MAIN SET TITLE = ?, LOCATION = ?, CHAPTER = ?, SCENE = ?, TAGS = ? WHERE KEY = ?', (title, location, chapter, scene, tags, key))
+	cursor.execute('UPDATE MAIN SET TITLE = ?, LOCATION = ?, CHAPTER = ?,\
+	 SCENE = ?, TAGS = ? WHERE KEY = ?',\
+	  (title, location, chapter, scene, tags, key))
 	connection.commit()
-	cursor.execute('INSERT into SCENE ({}) VALUES (?)'.format(scenenumber), (beats,))
+	cursor.execute('INSERT into SCENE ({}, KEY) VALUES (?, ?)'.format(scenenumber),\
+	 (beats, key,))
 	connection.commit()
-
+	
 	site = '/editscene/' + str(key)
-
 	return redirect(site)
 
-	#View Story
+#View Story
 
 @app.route('/viewoutline')
 def viewoutline():
 
-	
 	import sqlite3
 	connection = sqlite3.connect('projdbs/erotic.db')
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL')
 	info = cursor.fetchall()
-	print(len(info))
-	lister = []
-	beats = []
-	for row in info:
-		lister.append(row)
-		print(lister)
-		print(row["TITLE"])
-		print(row["KEY"])
-		key = row['KEY']
-		scenenumber = 'scene' + str(key)
-		print(scenenumber)
-	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
-	beat = cursor.fetchall()
-	for twist in beat:
-		beats.append(twist)
+	
+	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
+	beats = cursor.fetchall()
+	
 
 
-	return render_template('viewoutline.html', info=info, beat=beat, scenenumber=scenenumber, key=key, lister=lister, beats=beats)
+	return render_template('viewoutline.html', info=info, beats=beats)
 
 
 

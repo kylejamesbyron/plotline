@@ -1,4 +1,8 @@
 # plotline
 
-TODO
-design document
+**TODO**
+- Design Document
+- Sc# auto iterates
+    - auto iterates on update too
+
+
