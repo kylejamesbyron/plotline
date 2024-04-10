@@ -18,7 +18,44 @@ BEATS:<br>
 {% for beat in beats %}
 {% set scenenumber = "scene" + row['KEY']|string %}
 {% if beat['KEY'] == row['KEY'] %}
-- {{ beat[scenenumber] }}<br>
+
+{% if beat['NARRATIVE'] == 'Prisoners' %}
+{% set color = 'orange' %}
+{% elif beat['NARRATIVE'] == 'Terrorism' %}
+{% set color = 'purple' %}
+{% elif beat['NARRATIVE'] == 'Liam + Sophia' %}
+{% set color = 'pink' %}
+{% elif beat['NARRATIVE'] == 'Emma is a spy' %}
+{% set color = 'gray' %}
+{% elif beat['NARRATIVE'] == 'Jean is Evil' %}
+{% set color = 'cadetblue' %}
+{% elif beat['NARRATIVE'] == 'Elijah Investigates' %}
+{% set color = 'green' %}
+{% elif beat['NARRATIVE'] == 'Emma is Dead' %}
+{% set color = 'silver' %}
+{% elif beat['NARRATIVE'] == 'Rachel + Ben' %}
+{% set color = 'fuchsia' %}
+{% elif beat['NARRATIVE'] == 'Ben + Sophia' %}
+{% set color = 'maroon' %}
+{% elif beat['NARRATIVE'] == 'Rachel needs Bens Help' %}
+{% set color = 'lime' %}
+{% elif beat['NARRATIVE'] == 'Sophia Investigates Repairs' %}
+{% set color = 'olive' %}
+{% elif beat['NARRATIVE'] == 'Liam Investigates Terrorism' %}
+{% set color = 'yellow' %}
+{% elif beat['NARRATIVE'] == 'Jean + Sophia' %}
+{% set color = 'navy' %}
+{% elif beat['NARRATIVE'] == 'Emma + Jean' %}
+{% set color = 'teal' %}
+{% elif beat['NARRATIVE'] == 'The ONHR' %}
+{% set color = 'aqua' %}
+{% elif beat['NARRATIVE'] == 'Special' %}
+{% set color = 'red' %}
+
+{% endif %}
+
+
+<span style="background-color: {{ color }};"> - {{ beat[scenenumber] }}</span> <br>
 {% endif %}
 {% endfor %}
 
