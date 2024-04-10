@@ -16,6 +16,8 @@ app = Flask(__name__)
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
+database = 'ThinWalls.db'
+
 # Home Site
 @app.route('/')
 def home():
@@ -36,7 +38,7 @@ def savescene():
 	tags = request.form['TAGS']
 
 	#Write to DB
-	connection = sqlite3.connect('projdbs/erotic.db')
+	connection = sqlite3.connect('projdbs/' + database)
 	cursor = connection.cursor()
 	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
 		VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
@@ -55,7 +57,7 @@ def editscene(KEY):
 	key = str(KEY)
 	scenenumber = 'scene' + str(KEY)
 	import sqlite3
-	connection = sqlite3.connect('projdbs/erotic.db')
+	connection = sqlite3.connect('projdbs/' + database)
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM MAIN WHERE KEY = ?", (key,))
@@ -79,7 +81,7 @@ def updatescene(key):
 	
 
 	import sqlite3
-	connection = sqlite3.connect('projdbs/erotic.db')
+	connection = sqlite3.connect('projdbs/' + database)
 	cursor = connection.cursor()
 	cursor.execute('UPDATE MAIN SET TITLE = ?, LOCATION = ?, CHAPTER = ?,\
 	 SCENE = ?, TAGS = ? WHERE KEY = ?',\
@@ -98,7 +100,7 @@ def updatescene(key):
 def viewoutline():
 
 	import sqlite3
-	connection = sqlite3.connect('projdbs/erotic.db')
+	connection = sqlite3.connect('projdbs/' + database)
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	# Get scene info

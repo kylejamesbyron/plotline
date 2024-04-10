@@ -17,10 +17,9 @@
 - [] Create new database
 - [] Beat editor Edit Beats
 - [] add Narratives
-    
-
+- [] maybe add mode where you create edit and view at the same time
+- [ ] work on look of view
 - add colors for tags
-
 
 **LONG TERM**
 - Project Chooser
@@ -30,8 +29,9 @@
 - spell check
 - write by narrative
 - view by narrative
-word count
-stats
+- word count
+- stats
+- a table for settings during setup
 
 ## 1.0
 - [x] Create Scene
