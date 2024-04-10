@@ -15,14 +15,14 @@
 
 <div style="text-align: left;">
 
-
+{% set newscene = (scenenumber + 1) %}
 <form action="/savescene" method="post">
   TITLE:&nbsp; <input name="TITLE">&nbsp;&nbsp;&nbsp; TAGS:&nbsp; <input name="TAGS"><br>
   </div>
-  <div style="text-align: left;">CH#:&nbsp; <input name="CH#">&nbsp;&nbsp;&nbsp;
-  SC#:&nbsp; <input name="SC#">&nbsp;&nbsp;&nbsp; LOC:&nbsp;&nbsp;&nbsp;
-  <input name="LOCATION">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-  &nbsp;&nbsp; &nbsp;&nbsp;
+  <div style="text-align: left;">
+  CH#:  <textarea input name="CH#">{{ chapternumber }}</textarea>
+  SC#:  <textarea input name="SC#">{{ newscene }}</textarea>  
+  LOC:  <textarea input name="LOCATION"></textarea>
   <select name="ADDTAGS" id="ADDTAGS">
   <option value="Tags">Tags</option>
   <option value="Sex">Sex</option>

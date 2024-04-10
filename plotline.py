@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
-database = 'ThinWalls.db'
+database = 'erotic.db'
 
 # Home Site
 @app.route('/')
@@ -26,7 +26,14 @@ def home():
 # Create Scene
 @app.route('/createscene')
 def createscene():
-	return render_template('createscene.html')
+
+	connection = sqlite3.connect('projdbs/' + database)
+	cursor = connection.cursor()
+	cursor.execute('SELECT SCENE FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
+	[scenenumber] = cursor.fetchone()
+	cursor.execute('SELECT CHAPTER FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
+	[chapternumber] = cursor.fetchone()
+	return render_template('createscene.html', scenenumber=scenenumber, chapternumber=chapternumber)
 
 @app.route('/savescene', methods=['POST'])
 def savescene():

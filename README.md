@@ -6,22 +6,24 @@
     - auto iterates on update too
 - tags system
 - [x] sort scenes by sc#
-- querys
-- characters tracking
+- [] querys
+- [] characters tracking
 - [x] add narrative
 - [x] add narrative colors to outline
 - [x] add (-) to Scene Editor
-- make tags useful
+- [] make tags useful
     'for tag in tags
     print tag (Color)'
-- [] Create new database
-- [] Beat editor Edit Beats
+- [x] Create new database
+- [] Beat editor Edit Beats (Special view with each beat editable.
 - [] add Narratives
 - [] maybe add mode where you create edit and view at the same time
-- [ ] work on look of view
-- add colors for tags
+- [] work on look of view
+- [] add colors for tags
+- [x] Scene editor auto fills next scene
 
 **LONG TERM**
+- capture cursor
 - Project Chooser
 - Project switcher
 - Project Creator

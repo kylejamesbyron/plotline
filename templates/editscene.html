@@ -12,14 +12,14 @@
   <a href="\viewoutline">View...</a>
   <br>
   <br>
-  
+
 <div style="text-align: left;">
 
 {% for row in rows %}
 
 <form action="/updatescene/{{key}}" method="post">
-  SC#: <textarea input name="SCENE">{{row['SCENE']}} </textarea>
   CH#: <textarea input name="CHAPTER">{{row['CHAPTER']}} </textarea>
+  SC#: <textarea input name="SCENE">{{row['SCENE']}} </textarea>
   TAGS: <textarea input name="TAGS">{{row['TAGS']}} </textarea>
   <br>
   TITLE: <textarea input name="TITLE">{{row['TITLE']}} </textarea>
