@@ -10,7 +10,13 @@
 - characters tracking
 - [x] add narrative
 - add narrative colors to outline
-- add (-) to Scene Editor
+- [x] add (-) to Scene Editor
+- make tags useful
+    'for tag in tags
+    print tag (Color)'
+    
+
+- add colors for tags
 
 
 **LONG TERM**
