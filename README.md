@@ -21,6 +21,8 @@
 - [] work on look of view
 - [] add colors for tags
 - [x] Scene editor auto fills next scene
+notes window
+
 
 **LONG TERM**
 - capture cursor
@@ -40,3 +42,4 @@
     - [x] With Chapter, Scene, Location, Title
 - [] Edit Scene
     - [] Choose narrative and it changes Color
+[] 
