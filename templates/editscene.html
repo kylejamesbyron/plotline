@@ -31,11 +31,69 @@
   <br>
   {% for row in beat %}
   {% if row[scenenumber] is not none %}
-  {{row[scenenumber]}}<br>
+  
+  {% if row['NARRATIVE'] == 'Prisoners' %}
+  {% set color = 'orange' %}
+  {% elif row['NARRATIVE'] == 'Terrorism' %}
+  {% set color = 'purple' %}
+  {% elif row['NARRATIVE'] == 'Liam + Sophia' %}
+  {% set color = 'pink' %}
+  {% elif row['NARRATIVE'] == 'Emma is a spy' %}
+  {% set color = 'gray' %}
+  {% elif row['NARRATIVE'] == 'Jean is Evil' %}
+  {% set color = 'cadetblue' %}
+  {% elif row['NARRATIVE'] == 'Elijah Investigates' %}
+  {% set color = 'green' %}
+  {% elif row['NARRATIVE'] == 'Emma is Dead' %}
+  {% set color = 'silver' %}
+  {% elif row['NARRATIVE'] == 'Rachel + Ben' %}
+  {% set color = 'fuchsia' %}
+  {% elif row['NARRATIVE'] == 'Ben + Sophia' %}
+  {% set color = 'maroon' %}
+  {% elif row['NARRATIVE'] == 'Rachel needs Bens Help' %}
+  {% set color = 'lime' %}
+  {% elif row['NARRATIVE'] == 'Sophia Investigates Repairs' %}
+  {% set color = 'olive' %}
+  {% elif row['NARRATIVE'] == 'Liam Investigates Terrorism' %}
+  {% set color = 'yellow' %}
+  {% elif row['NARRATIVE'] == 'Jean + Sophia' %}
+  {% set color = 'navy' %}
+  {% elif row['NARRATIVE'] == 'Emma + Jean' %}
+  {% set color = 'teal' %}
+  {% elif row['NARRATIVE'] == 'The ONHR' %}
+  {% set color = 'aqua' %}
+  {% elif row['NARRATIVE'] == 'Special' %}
+  {% set color = 'red' %}
+
   {% endif %}
-  {% endfor %}
+
+  <span style="background-color: {{ color }};">{{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
+
+   
+
+  {% endif %} 
+  {% endfor %} 
   <br>
   <textarea input name="BEATS"></textarea>
+  <select name="NARRATIVE" id="NARRATIVE">
+  <option value="">NARRATIVE</option>
+  <option value="Prisoners">Prisoners</option>
+  <option value="Terrorism">Terrorism</option>
+  <option value="Liam + Sophia">Liam + Sophia</option>
+  <option value="Emma is a spy">Emma is a spy</option>
+  <option value="Jean is Evil">Jean is Evil</option>
+  <option value="Elijah Investigates">Elijah Investigates</option>
+  <option value="Emma is Dead">Emma is Dead</option>
+  <option value="Rachel + Ben">Rachel + Ben</option>
+  <option value="Ben + Sophia">Ben + Sophia</option>
+  <option value="Rachel needs Bens Help">Rachel needs Bens Help</option>
+  <option value="Sophia Investigates Repairs">Sophia Investigates Repairs</option>
+  <option value="Liam Investigates Terrorism">Liam Investigates Terrorism</option>
+  <option value="Jean + Sophia">Jean + Sophia</option>
+  <option value="Emma + Jean">Emma + Jean</option>
+  <option value="The ONHR">The ONHR</option>
+  <option value="Special">Special</option>
+  </select>[add]<br>
   <br>
   
    <input name="form" value="Save" type="submit"> 

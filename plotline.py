@@ -74,6 +74,7 @@ def updatescene(key):
 	scene = request.form['SCENE']
 	tags = request.form['TAGS']
 	beats = request.form['BEATS']
+	narrative = request.form['NARRATIVE']
 	addtags = request.form['ADDTAGS']
 	
 
@@ -84,8 +85,8 @@ def updatescene(key):
 	 SCENE = ?, TAGS = ? WHERE KEY = ?',\
 	  (title, location, chapter, scene, tags, key))
 	connection.commit()
-	cursor.execute('INSERT into SCENE ({}, KEY) VALUES (?, ?)'.format(scenenumber),\
-	 (beats, key,))
+	cursor.execute('INSERT into SCENE ({}, KEY, NARRATIVE) VALUES (?, ?, ?)'.format(scenenumber),\
+	 (beats, key, narrative))
 	connection.commit()
 	
 	site = '/editscene/' + str(key)
@@ -101,7 +102,8 @@ def viewoutline():
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	# Get scene info
-	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL ORDER BY CHAPTER, SCENE' )
+	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL ORDER BY\
+	 CHAPTER, SCENE' )
 	info = cursor.fetchall()
 	# Get scene beats
 	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
