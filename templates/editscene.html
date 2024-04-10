@@ -6,6 +6,27 @@
 
   
 </head><body>
+
+  <style type="text/css">
+  option.Prisoners {background-color: orange;}
+  option.Terrorism {background-color: purple;}
+  option.LiamSophia {background-color: pink;}
+  option.Emmaisaspy {background-color: gray;}
+  option.JeanisEvil {background-color: cadetblue;}
+  option.ElijahInvestigates {background-color: green;}
+  option.EmmaisDead {background-color: silver;}
+  option.RachelBen {background-color: fuchsia;}
+  option.BenSophia {background-color: maroon;}
+  option.RachelNeedsBensHelp {background-color: lime;}
+  option.SophiaInvestigatesRepairs {background-color: olive;}
+  option.LiamInvestigatesTerrorism {background-color: yellow;}
+  option.JeanSophia {background-color: navy;}
+  option.EmmaJean {background-color: teal;}
+  option.TheONHR {background-color: aqua;}
+  option.Special {background-color: red;}
+  </style>
+
+
 <div style="text-align: center;">PLOTLINE...Edit Scene<br>
    <a href="\createscene">Create...</a>
   <a href="\editscene">Edit...</a>
@@ -75,7 +96,7 @@
 
   <span style="background-color: {{ color }};"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
 
-   
+
 
   {% endif %} 
   {% endfor %} 
@@ -83,22 +104,22 @@
   <textarea input name="BEATS"></textarea>
   <select name="NARRATIVE" id="NARRATIVE">
   <option value="">NARRATIVE</option>
-  <option value="Prisoners">Prisoners</option>
-  <option value="Terrorism">Terrorism</option>
-  <option value="Liam + Sophia">Liam + Sophia</option>
-  <option value="Emma is a spy">Emma is a spy</option>
-  <option value="Jean is Evil">Jean is Evil</option>
-  <option value="Elijah Investigates">Elijah Investigates</option>
-  <option value="Emma is Dead">Emma is Dead</option>
-  <option value="Rachel + Ben">Rachel + Ben</option>
-  <option value="Ben + Sophia">Ben + Sophia</option>
-  <option value="Rachel needs Bens Help">Rachel needs Bens Help</option>
-  <option value="Sophia Investigates Repairs">Sophia Investigates Repairs</option>
-  <option value="Liam Investigates Terrorism">Liam Investigates Terrorism</option>
-  <option value="Jean + Sophia">Jean + Sophia</option>
-  <option value="Emma + Jean">Emma + Jean</option>
-  <option value="The ONHR">The ONHR</option>
-  <option value="Special">Special</option>
+  <option class="Prisoners" value="Prisoners">Prisoners</option>
+  <option class="Terrorism" value="Terrorism">Terrorism</option>
+  <option class="LiamSophia" value="Liam + Sophia">Liam + Sophia</option>
+  <option class="Emmaisaspy" value="Emma is a spy">Emma is a spy</option>
+  <option class="JeanisEvil" value="Jean is Evil">Jean is Evil</option>
+  <option class="ElijahInvestigates" value="Elijah Investigates">Elijah Investigates</option>
+  <option class="EmmaisDead" value="Emma is Dead">Emma is Dead</option>
+  <option class="RachelBen" value="Rachel + Ben">Rachel + Ben</option>
+  <option class="BenSophia" value="Ben + Sophia">Ben + Sophia</option>
+  <option class="RachelNeedsBensHelp" value="Rachel needs Bens Help">Rachel needs Bens Help</option>
+  <option class="SophiaInvestigatesRepairs" value="Sophia Investigates Repairs">Sophia Investigates Repairs</option>
+  <option class="LiamInvestigatesTerrorism" value="Liam Investigates Terrorism">Liam Investigates Terrorism</option>
+  <option class="JeanSophia" value="Jean + Sophia">Jean + Sophia</option>
+  <option class="EmmaJean" value="Emma + Jean">Emma + Jean</option>
+  <option class="TheONHR" value="The ONHR">The ONHR</option>
+  <option class="Special" value="Special">Special</option>
   </select>[add]<br>
   <br>
   
