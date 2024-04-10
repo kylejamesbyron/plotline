@@ -30,6 +30,8 @@
 - spell check
 - write by narrative
 - view by narrative
+word count
+stats
 
 ## 1.0
 - [x] Create Scene
