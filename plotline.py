@@ -11,14 +11,8 @@ from datetime import time
 from flask import redirect
 import time
 import sqlite3
-# import pandas as pd
-
-
 
 app = Flask(__name__)
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True
-app.jinja_env.add_extension('jinja2.ext.do')
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
@@ -43,7 +37,6 @@ def savescene():
 
 	#Write to DB
 	connection = sqlite3.connect('projdbs/erotic.db')
-	#connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
 		VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
@@ -81,12 +74,12 @@ def updatescene(key):
 	scene = request.form['SCENE']
 	tags = request.form['TAGS']
 	beats = request.form['BEATS']
+	addtags = request.form['ADDTAGS']
+	
 
 	import sqlite3
 	connection = sqlite3.connect('projdbs/erotic.db')
 	cursor = connection.cursor()
-	cursor.execute('SELECT * FROM SCENE WHERE "&scenenumber" IS NOT NULL')
-	beat = cursor.fetchall()
 	cursor.execute('UPDATE MAIN SET TITLE = ?, LOCATION = ?, CHAPTER = ?,\
 	 SCENE = ?, TAGS = ? WHERE KEY = ?',\
 	  (title, location, chapter, scene, tags, key))
@@ -107,14 +100,13 @@ def viewoutline():
 	connection = sqlite3.connect('projdbs/erotic.db')
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
-	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL')
+	# Get scene info
+	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL ORDER BY CHAPTER, SCENE' )
 	info = cursor.fetchall()
-	
+	# Get scene beats
 	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
 	beats = cursor.fetchall()
 	
-
-
 	return render_template('viewoutline.html', info=info, beats=beats)
 
 

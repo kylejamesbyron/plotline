@@ -14,11 +14,11 @@
 SC: {{row['CHAPTER']}}.{{row['SCENE']}}: {{row['TITLE']}}<br>
 LOC:{{row['LOCATION']}}<br>
 
+BEATS:<br>
 {% for beat in beats %}
 {% set scenenumber = "scene" + row['KEY']|string %}
 {% if beat['KEY'] == row['KEY'] %}
-BEATS:<br>
-{{ beat[scenenumber] }}<br>
+- {{ beat[scenenumber] }}<br>
 {% endif %}
 {% endfor %}
 
