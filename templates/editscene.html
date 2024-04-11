@@ -4,27 +4,27 @@
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>EditScene</title>
 
+<style type="text/css">
+  .Prisoners {background-color: orange;}
+  .Terrorism {background-color: purple;}
+  .LiamSophia {background-color: pink;}
+  .Emmaisaspy {background-color: gray;}
+  .JeanisEvil {background-color: cadetblue;}
+  .ElijahInvestigates {background-color: green;}
+  .EmmaisDead {background-color: silver;}
+  .RachelBen {background-color: fuchsia;}
+  .BenSophia {background-color: lightsalmon;}
+  .RachelNeedsBensHelp {background-color: lime;}
+  .SophiaInvestigatesRepairs {background-color: olive;}
+  .LiamInvestigatesTerrorism {background-color: yellow;}
+  .JeanSophia {background-color: navy;}
+  .EmmaJean {background-color: teal;}
+  .TheONHR {background-color: aqua;}
+  .Special {background-color: red;}
+</style>
+
 </div>
 </head><body>
-
-  <style type="text/css">
-  option.Prisoners {background-color: orange;}
-  option.Terrorism {background-color: purple;}
-  option.LiamSophia {background-color: pink;}
-  option.Emmaisaspy {background-color: gray;}
-  option.JeanisEvil {background-color: cadetblue;}
-  option.ElijahInvestigates {background-color: green;}
-  option.EmmaisDead {background-color: silver;}
-  option.RachelBen {background-color: fuchsia;}
-  option.BenSophia {background-color: lightsalmon;}
-  option.RachelNeedsBensHelp {background-color: lime;}
-  option.SophiaInvestigatesRepairs {background-color: olive;}
-  option.LiamInvestigatesTerrorism {background-color: yellow;}
-  option.JeanSophia {background-color: navy;}
-  option.EmmaJean {background-color: teal;}
-  option.TheONHR {background-color: aqua;}
-  option.Special {background-color: red;}
-
 
 <div style="text-align: center;">PLOTLINE...Edit Scene<br>
 
@@ -60,43 +60,43 @@
   {% if row[scenenumber] is not none %}
   
   {% if row['NARRATIVE'] == 'Prisoners' %}
-  {% set color = 'orange' %}
+  {% set color = 'Prisoners' %}
   {% elif row['NARRATIVE'] == 'Terrorism' %}
-  {% set color = 'purple' %}
+  {% set color = 'Terrorism' %}
   {% elif row['NARRATIVE'] == 'Liam + Sophia' %}
-  {% set color = 'pink' %}
+  {% set color = 'LiamSophia' %}
   {% elif row['NARRATIVE'] == 'Emma is a spy' %}
-  {% set color = 'gray' %}
+  {% set color = 'Emmaisaspy' %}
   {% elif row['NARRATIVE'] == 'Jean is Evil' %}
-  {% set color = 'cadetblue' %}
+  {% set color = 'JeanisEvil' %}
   {% elif row['NARRATIVE'] == 'Elijah Investigates' %}
-  {% set color = 'green' %}
+  {% set color = 'ElijahInvestigates' %}
   {% elif row['NARRATIVE'] == 'Emma is Dead' %}
-  {% set color = 'silver' %}
+  {% set color = 'EmmaisDead' %}
   {% elif row['NARRATIVE'] == 'Rachel + Ben' %}
-  {% set color = 'fuchsia' %}
+  {% set color = 'RachelBen' %}
   {% elif row['NARRATIVE'] == 'Ben + Sophia' %}
-  {% set color = 'lightsalmon' %}
+  {% set color = 'BenSophia' %}
   {% elif row['NARRATIVE'] == 'Rachel needs Bens Help' %}
-  {% set color = 'lime' %}
+  {% set color = 'RachelneedsBensHelp' %}
   {% elif row['NARRATIVE'] == 'Sophia Investigates Repairs' %}
-  {% set color = 'olive' %}
+  {% set color = 'SophiaInvestigatesRepairs' %}
   {% elif row['NARRATIVE'] == 'Liam Investigates Terrorism' %}
-  {% set color = 'yellow' %}
+  {% set color = 'LiamInvestigatesTerrorism' %}
   {% elif row['NARRATIVE'] == 'Jean + Sophia' %}
-  {% set color = 'navy' %}
+  {% set color = 'JeanSophia' %}
   {% elif row['NARRATIVE'] == 'Emma + Jean' %}
-  {% set color = 'teal' %}
+  {% set color = 'EmmaJean' %}
   {% elif row['NARRATIVE'] == 'The ONHR' %}
-  {% set color = 'aqua' %}
+  {% set color = 'TheONHR' %}
   {% elif row['NARRATIVE'] == 'Special' %}
-  {% set color = 'red' %}
+  {% set color = 'Special' %}
 
   {% endif %}
 
   <span style="background-color: {{ color }};"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
-
-
+  <span class="{{ color }}"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
+  
 
   {% endif %} 
   {% endfor %} 
