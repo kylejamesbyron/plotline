@@ -1,4 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+{% extends 'base.html' %}
+
+  {% block content %}
+
 <html><head>
   
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
@@ -26,42 +29,50 @@ BEATS:<br>
 {% if beat['KEY'] == row['KEY'] %}
 
 {% if beat['NARRATIVE'] == narrative1 %}
-{% set color = 'orange' %}
-{% elif beat['NARRATIVE'] == 'Terrorism' %}
-{% set color = 'purple' %}
-{% elif beat['NARRATIVE'] == 'Liam + Sophia' %}
-{% set color = 'pink' %}
-{% elif beat['NARRATIVE'] == 'Emma is a spy' %}
-{% set color = 'gray' %}
-{% elif beat['NARRATIVE'] == 'Jean is Evil' %}
-{% set color = 'cadetblue' %}
-{% elif beat['NARRATIVE'] == 'Elijah Investigates' %}
-{% set color = 'green' %}
-{% elif beat['NARRATIVE'] == 'Emma is Dead' %}
-{% set color = 'silver' %}
-{% elif beat['NARRATIVE'] == 'Rachel + Ben' %}
-{% set color = 'fuchsia' %}
-{% elif beat['NARRATIVE'] == 'Ben + Sophia' %}
-{% set color = 'maroon' %}
-{% elif beat['NARRATIVE'] == 'Rachel needs Bens Help' %}
-{% set color = 'lime' %}
-{% elif beat['NARRATIVE'] == 'Sophia Investigates Repairs' %}
-{% set color = 'olive' %}
-{% elif beat['NARRATIVE'] == 'Liam Investigates Terrorism' %}
-{% set color = 'yellow' %}
-{% elif beat['NARRATIVE'] == 'Jean + Sophia' %}
-{% set color = 'navy' %}
-{% elif beat['NARRATIVE'] == 'Emma + Jean' %}
-{% set color = 'teal' %}
-{% elif beat['NARRATIVE'] == 'The ONHR' %}
-{% set color = 'aqua' %}
-{% elif beat['NARRATIVE'] == 'Special' %}
-{% set color = 'red' %}
+{% set color = 'narrative1' %}
+{% elif beat['NARRATIVE'] == narrative2 %}
+{% set color = 'narrative2' %}
+{% elif beat['NARRATIVE'] == narrative3 %}
+{% set color = 'narrative3' %}
+{% elif beat['NARRATIVE'] == narrative4 %}
+{% set color = 'narrative4' %}
+{% elif beat['NARRATIVE'] == narrative5 %}
+{% set color = 'narrative5' %}
+{% elif beat['NARRATIVE'] == narrative6 %}
+{% set color = 'narrative6' %}
+{% elif beat['NARRATIVE'] == narrative7 %}
+{% set color = 'narrative7' %}
+{% elif beat['NARRATIVE'] == narrative8 %}
+{% set color = 'narrative8' %}
+{% elif beat['NARRATIVE'] == narrative9 %}
+{% set color = 'narrative9' %}
+{% elif beat['NARRATIVE'] == narrative10 %}
+{% set color = 'narrative10' %}
+{% elif beat['NARRATIVE'] == narrative11 %}
+{% set color = 'narrative11' %}
+{% elif beat['NARRATIVE'] == narrative12 %}
+{% set color = 'narrative12' %}
+{% elif beat['NARRATIVE'] == narrative13 %}
+{% set color = 'narrative13' %}
+{% elif beat['NARRATIVE'] == narrative14 %}
+{% set color = 'narrative14' %}
+{% elif beat['NARRATIVE'] == narrative15 %}
+{% set color = 'narrative15' %}
+{% elif beat['NARRATIVE'] == narrative16 %}
+{% set color = 'narrative16' %}
+{% elif beat['NARRATIVE'] == narrative16 %}
+{% set color = 'narrative17' %}
+{% elif beat['NARRATIVE'] == narrative16 %}
+{% set color = 'narrative18' %}
+{% elif beat['NARRATIVE'] == narrative16 %}
+{% set color = 'narrative19' %}
+{% elif beat['NARRATIVE'] == narrative16 %}
+{% set color = 'narrative20' %}
 
 {% endif %}
 
 
-<span style="background-color: {{ color }};"> - {{ beat[scenenumber] }}</span> <br>
+<span class="{{ color }}"> - {{ beat[scenenumber] }}</span> <br>
 {% endif %}
 {% endfor %}
 
@@ -72,3 +83,5 @@ BEATS:<br>
 </div>
 
 </body></html>
+
+{% endblock %}

@@ -147,7 +147,14 @@ def viewoutline():
 	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
 	beats = cursor.fetchall()
 	
-	return render_template('viewoutline.html', info=info, beats=beats, narrative1=narrative1)
+	return render_template('viewoutline.html', info=info,\
+						   beats=beats, narrative1=narrative1, narrative2=narrative2,\
+	  narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
+	  narrative6=narrative6, narrative7=narrative7, narrative8=narrative8,\
+	  narrative9=narrative9, narrative10=narrative10, narrative11=narrative11,\
+	  narrative12=narrative12, narrative13=narrative13, narrative14=narrative14,\
+	  narrative15=narrative15, narrative16=narrative16, narrative17=narrative17,\
+	  narrative18=narrative18, narrative19=narrative19, narrative20=narrative20)
 
 
 
