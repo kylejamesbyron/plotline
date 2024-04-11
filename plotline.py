@@ -18,7 +18,27 @@ app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 
 #Config
 database = 'erotic.db'
-narrative1 = 'rural king'
+narrative1 = 'Prisoners'
+narrative2 = 'Terrorism'
+narrative3 = 'Liam + Sophia'
+narrative4 = 'Emma is a spy'
+narrative5 = 'Jean is Evil'
+narrative6 = 'Elijah Investigates'
+narrative7 = 'Emma is Dead'
+narrative8 = 'Rachel + Ben'
+narrative9 = 'Ben + Sophia'
+narrative10 = 'Rachel needs Bens Help'
+narrative11 = 'Sophia Investigates Repairs'
+narrative12 = 'Liam Investigates Terrorism'
+narrative13 = 'Jean + Sophia'
+narrative14 = 'Emma + Jean'
+narrative15 = 'The ONHR'
+narrative16 = 'Special'
+narrative17 = ''
+narrative18 = ''
+narrative19 = ''
+narrative20 = ''
+
 
 # Home Site
 @app.route('/')
@@ -75,8 +95,14 @@ def editscene(KEY):
 	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
 	beat = cursor.fetchall()
 	return render_template('editscene.html', rows=rows, key=key, beat=beat,\
-	 scenenumber=scenenumber, narrative1=narrative1)
-	print(narrative1)
+	 scenenumber=scenenumber, narrative1=narrative1, narrative2=narrative2,\
+	  narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
+	  narrative6=narrative6, narrative7=narrative7, narrative8=narrative8,\
+	  narrative9=narrative9, narrative10=narrative10, narrative11=narrative11,\
+	  narrative12=narrative12, narrative13=narrative13, narrative14=narrative14,\
+	  narrative15=narrative15, narrative16=narrative16, narrative17=narrative17,\
+	  narrative18=narrative18, narrative19=narrative19, narrative20=narrative20)
+
 @app.route('/updatescene/<key>', methods = ['POST'])
 def updatescene(key):
 	scenenumber = 'scene' + str(key)
@@ -121,7 +147,7 @@ def viewoutline():
 	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
 	beats = cursor.fetchall()
 	
-	return render_template('viewoutline.html', info=info, beats=beats)
+	return render_template('viewoutline.html', info=info, beats=beats, narrative1=narrative1)
 
 
 

@@ -25,7 +25,7 @@ BEATS:<br>
 {% set scenenumber = "scene" + row['KEY']|string %}
 {% if beat['KEY'] == row['KEY'] %}
 
-{% if beat['NARRATIVE'] == 'Prisoners' %}
+{% if beat['NARRATIVE'] == narrative1 %}
 {% set color = 'orange' %}
 {% elif beat['NARRATIVE'] == 'Terrorism' %}
 {% set color = 'purple' %}

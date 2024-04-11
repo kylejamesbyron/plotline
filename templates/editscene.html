@@ -5,23 +5,27 @@
   <title>EditScene</title>
 
 <style type="text/css">
-  .narrative1 {background-color: indianred;}
-  .Prisoners {background-color: orange;}
-  .Terrorism {background-color: purple;}
-  .LiamSophia {background-color: pink;}
-  .Emmaisaspy {background-color: gray;}
-  .JeanisEvil {background-color: cadetblue;}
-  .ElijahInvestigates {background-color: green;}
-  .EmmaisDead {background-color: silver;}
-  .RachelBen {background-color: fuchsia;}
-  .BenSophia {background-color: lightsalmon;}
-  .RachelNeedsBensHelp {background-color: lime;}
-  .SophiaInvestigatesRepairs {background-color: olive;}
-  .LiamInvestigatesTerrorism {background-color: yellow;}
-  .JeanSophia {background-color: navy;}
-  .EmmaJean {background-color: teal;}
-  .TheONHR {background-color: aqua;}
-  .Special {background-color: red;}
+  .narrative1 {background-color: orange;}
+  .narrative2 {background-color: purple;}
+  .narrative3 {background-color: pink;}
+  .narrative4 {background-color: gray;}
+  .narrative5 {background-color: cadetblue;}
+  .narrative6 {background-color: green;}
+  .narrative7 {background-color: silver;}
+  .narrative8 {background-color: fuchsia;}
+  .narrative9 {background-color: lightsalmon;}
+  .narrative10 {background-color: lime;}
+  .narrative11 {background-color: olive;}
+  .narrative12 {background-color: yellow;}
+  .narrative13 {background-color: navy;}
+  .narrative14 {background-color: teal;}
+  .narrative15 {background-color: aqua;}
+  .narrative16 {background-color: red;}
+  .narrative17 {background-color: white;}
+  .narrative18 {background-color: white;}
+  .narrative19 {background-color: white;}
+  .narrative20 {background-color: white;}
+
 </style>
 
 </div>
@@ -62,40 +66,48 @@
   {% for row in beat %}
   {% if row[scenenumber] is not none %}
   
-  {% if row['NARRATIVE'] == 'Prisoners' %}
-  {% set color = 'Prisoners' %}
-  {% elif row['NARRATIVE'] == 'Terrorism' %}
-  {% set color = 'Terrorism' %}
-  {% elif row['NARRATIVE'] == 'Liam + Sophia' %}
-  {% set color = 'LiamSophia' %}
-  {% elif row['NARRATIVE'] == 'Emma is a spy' %}
-  {% set color = 'Emmaisaspy' %}
-  {% elif row['NARRATIVE'] == 'Jean is Evil' %}
-  {% set color = 'JeanisEvil' %}
-  {% elif row['NARRATIVE'] == 'Elijah Investigates' %}
-  {% set color = 'ElijahInvestigates' %}
-  {% elif row['NARRATIVE'] == 'Emma is Dead' %}
-  {% set color = 'EmmaisDead' %}
-  {% elif row['NARRATIVE'] == 'Rachel + Ben' %}
-  {% set color = 'RachelBen' %}
-  {% elif row['NARRATIVE'] == 'Ben + Sophia' %}
-  {% set color = 'BenSophia' %}
-  {% elif row['NARRATIVE'] == 'Rachel needs Bens Help' %}
-  {% set color = 'RachelneedsBensHelp' %}
-  {% elif row['NARRATIVE'] == 'Sophia Investigates Repairs' %}
-  {% set color = 'SophiaInvestigatesRepairs' %}
-  {% elif row['NARRATIVE'] == 'Liam Investigates Terrorism' %}
-  {% set color = 'LiamInvestigatesTerrorism' %}
-  {% elif row['NARRATIVE'] == 'Jean + Sophia' %}
-  {% set color = 'JeanSophia' %}
-  {% elif row['NARRATIVE'] == 'Emma + Jean' %}
-  {% set color = 'EmmaJean' %}
-  {% elif row['NARRATIVE'] == 'The ONHR' %}
-  {% set color = 'TheONHR' %}
-  {% elif row['NARRATIVE'] == 'Special' %}
-  {% set color = 'Special' %}
-  {% elif row['NARRATIVE'] == narrative1 %}
+
+
+  {% if row['NARRATIVE'] == narrative1 %}
   {% set color = 'narrative1' %}
+  {% elif row['NARRATIVE'] == narrative2 %}
+  {% set color = 'narrative2' %}
+  {% elif row['NARRATIVE'] == narrative3 %}
+  {% set color = 'narrative3' %}
+  {% elif row['NARRATIVE'] == narrative4 %}
+  {% set color = 'narrative4' %}
+  {% elif row['NARRATIVE'] == narrative5 %}
+  {% set color = 'narrative5' %}
+  {% elif row['NARRATIVE'] == narrative6 %}
+  {% set color = 'narrative6' %}
+  {% elif row['NARRATIVE'] == narrative7 %}
+  {% set color = 'narrative7' %}
+  {% elif row['NARRATIVE'] == narrative8 %}
+  {% set color = 'narrative8' %}
+  {% elif row['NARRATIVE'] == narrative9 %}
+  {% set color = 'narrative9' %}
+  {% elif row['NARRATIVE'] == narrative10 %}
+  {% set color = 'narrative10' %}
+  {% elif row['NARRATIVE'] == narrative11 %}
+  {% set color = 'narrative11' %}
+  {% elif row['NARRATIVE'] == narrative12 %}
+  {% set color = 'narrative12' %}
+  {% elif row['NARRATIVE'] == narrative13 %}
+  {% set color = 'narrative13' %}
+  {% elif row['NARRATIVE'] == narrative14 %}
+  {% set color = 'narrative14' %}
+  {% elif row['NARRATIVE'] == narrative15 %}
+  {% set color = 'narrative15' %}
+  {% elif row['NARRATIVE'] == narrative16 %}
+  {% set color = 'narrative16' %}
+  {% elif row['NARRATIVE'] == narrative17 %}
+  {% set color = 'narrative17' %}
+  {% elif row['NARRATIVE'] == narrative18 %}
+  {% set color = 'narrative18' %}
+  {% elif row['NARRATIVE'] == narrative19 %}
+  {% set color = 'narrative19' %}
+  {% elif row['NARRATIVE'] == narrative20 %}
+  {% set color = 'narrative20' %}
 
   {% endif %}
 
@@ -109,22 +121,21 @@
   <select name="NARRATIVE" id="NARRATIVE">
   <option value="">NARRATIVE</option>
   <option class="narrative1" value="{{narrative1}}">{{narrative1}}</option>
-  <option class="Prisoners" value="Prisoners">Prisoners</option>
-  <option class="Terrorism" value="Terrorism">Terrorism</option>
-  <option class="LiamSophia" value="Liam + Sophia">Liam + Sophia</option>
-  <option class="Emmaisaspy" value="Emma is a spy">Emma is a spy</option>
-  <option class="JeanisEvil" value="Jean is Evil">Jean is Evil</option>
-  <option class="ElijahInvestigates" value="Elijah Investigates">Elijah Investigates</option>
-  <option class="EmmaisDead" value="Emma is Dead">Emma is Dead</option>
-  <option class="RachelBen" value="Rachel + Ben">Rachel + Ben</option>
-  <option class="BenSophia" value="Ben + Sophia">Ben + Sophia</option>
-  <option class="RachelNeedsBensHelp" value="Rachel needs Bens Help">Rachel needs Bens Help</option>
-  <option class="SophiaInvestigatesRepairs" value="Sophia Investigates Repairs">Sophia Investigates Repairs</option>
-  <option class="LiamInvestigatesTerrorism" value="Liam Investigates Terrorism">Liam Investigates Terrorism</option>
-  <option class="JeanSophia" value="Jean + Sophia">Jean + Sophia</option>
-  <option class="EmmaJean" value="Emma + Jean">Emma + Jean</option>
-  <option class="TheONHR" value="The ONHR">The ONHR</option>
-  <option class="Special" value="Special">Special</option>
+  <option class="narrative2" value="{{narrative2}}">{{narrative2}}</option>
+  <option class="narrative3" value="{{narrative3}}">{{narrative3}}</option>
+  <option class="narrative4" value="{{narrative4}}">{{narrative4}}</option>
+  <option class="narrative5" value="{{narrative5}}">{{narrative5}}</option>
+  <option class="narrative6" value="{{narrative6}}">{{narrative6}}</option>
+  <option class="narrative7" value="{{narrative7}}">{{narrative7}}</option>
+  <option class="narrative8" value="{{narrative8}}">{{narrative8}}</option>
+  <option class="narrative9" value="{{narrative9}}">{{narrative9}}</option>
+  <option class="narrative10" value="{{narrative10}}">{{narrative10}}</option>
+  <option class="narrative11" value="{{narrative11}}">{{narrative11}}</option>
+  <option class="narrative12" value="{{narrative12}}">{{narrative12}}</option>
+  <option class="narrative13" value="{{narrative13}}">{{narrative13}}</option>
+  <option class="narrative14" value="{{narrative14}}">{{narrative14}}</option>
+  <option class="narrative15" value="{{narrative15}}">{{narrative15}}</option>
+  <option class="narrative16" value="{{narrative16}}">{{narrative16}}</option>
   </select>[add]<br>
   <br>
   
