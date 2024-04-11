@@ -16,7 +16,9 @@ app = Flask(__name__)
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
+#Config
 database = 'erotic.db'
+narrative1 = 'rural king'
 
 # Home Site
 @app.route('/')
@@ -73,7 +75,8 @@ def editscene(KEY):
 	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
 	beat = cursor.fetchall()
 	return render_template('editscene.html', rows=rows, key=key, beat=beat,\
-	 scenenumber=scenenumber)
+	 scenenumber=scenenumber, narrative1=narrative1)
+	print(narrative1)
 @app.route('/updatescene/<key>', methods = ['POST'])
 def updatescene(key):
 	scenenumber = 'scene' + str(key)

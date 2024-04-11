@@ -4,8 +4,8 @@
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>EditScene</title>
 
-Test
 <style type="text/css">
+  .narrative1 {background-color: indianred;}
   .Prisoners {background-color: orange;}
   .Terrorism {background-color: purple;}
   .LiamSophia {background-color: pink;}
@@ -94,10 +94,11 @@ Test
   {% set color = 'TheONHR' %}
   {% elif row['NARRATIVE'] == 'Special' %}
   {% set color = 'Special' %}
+  {% elif row['NARRATIVE'] == narrative1 %}
+  {% set color = 'narrative1' %}
 
   {% endif %}
 
-  <span style="background-color: {{ color }};"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
   <span class="{{ color }}"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
   
 
@@ -107,6 +108,7 @@ Test
   <textarea input name="BEATS"></textarea>
   <select name="NARRATIVE" id="NARRATIVE">
   <option value="">NARRATIVE</option>
+  <option class="narrative1" value="{{narrative1}}">{{narrative1}}</option>
   <option class="Prisoners" value="Prisoners">Prisoners</option>
   <option class="Terrorism" value="Terrorism">Terrorism</option>
   <option class="LiamSophia" value="Liam + Sophia">Liam + Sophia</option>
