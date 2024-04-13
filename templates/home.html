@@ -2,12 +2,32 @@
 {% block content %}
 <head>
     <meta charset="UTF-8">
-    <title>Plotline...</title>
+    <title>Plotline...</title><br><br>
 </head>
 <body>
 
-[x] Test <br>
-[ ] Test 2
+
+    What do you Want to do?<br>
+    Create New Project
+    <form action="/createdb" method="post">
+        <textarea input name="projectname">project name</textarea>
+        <input type="submit" value="new"> <br>
+    </form>
+    Open Project <form action="/openproject" method="post">
+        <select name="projectname" id="projectname">
+            <option input name="projectname">{# some name #}</option>
+            <option input name="projectname">{# some name #}</option>
+            <option input name="projectname">{# some name #}</option>
+            <option input name="projectname">{# some name #}</option>
+        </select>
+
+    </form>
+
+
+
+
+
+</form>
 
 
 </body>
