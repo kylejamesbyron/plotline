@@ -8,15 +8,14 @@
     Narratives: <br>
     <br>
     {% for narrative in narratives: %}
-    {% if narrative['VARIABLE'].startswith('narrative') and narrative['NNUMBER'] > 0 %}
-    {{ narrative['NNUMBER'] }}.{{ narrative['SETTING'] }} <br>
-    
-    {% endif %}
-
-    {% endfor %} 
+    {% if narrative['VARIABLE'].startswith('narrative') %}
     {% set newnarrativenumber = (NNUMBER + 1) %}
     <textarea name='newnarrativenumber' cols='2' rows='1'>{{ newnarrativenumber }}</textarea>  
     <textarea input name="newnarrative"></textarea> <br>
+    {% endif %}
+
+    {% endfor %} 
+   
 
     <input name="form" value="Create Narrative" type="submit">
 </form>
