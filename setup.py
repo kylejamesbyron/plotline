@@ -17,10 +17,10 @@ app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
 # Settings List
-settings = [#{'narrative1,'},
-#           {'narrative2,'},
-#           {'narrative3,'},
-#           {'narrative4,'},
+settings = [('narrative1,',),
+            ('narrative2,',), 
+            ('narrative3,',),
+            ('narrative4,',),
             ('projectname',),
             ('database',),
             ('logline',),]
@@ -74,14 +74,24 @@ def savesettings():
          connection.commit()
       elif variable['VARIABLE'] == 'logline':
          update = logline
+         logline = update
          cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?", (update, variable['VARIABLE'],))
          connection.commit()
-      elif variable['VARIABLE'] == 'databse':
+      elif variable['VARIABLE'] == 'database':
          update = database
+         database = update
          cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?", (update, variable['VARIABLE'],))
-         connection.commit()   
-   return projectname
+         connection.commit()
 
+    
+   cursor.execute("SELECT VARIABLE FROM settings WHERE VARIABLE LIKE ?", ('narrative%',)) 
+   narratives = cursor.fetchall() 
+   for narrative in narratives:
+      narrative = narrative['variable']
+
+
+   return render_template('/createnarratives.html', projectname=projectname, logline=logline, database=database)
+   #return narrative
 
 
 # Close Flask
