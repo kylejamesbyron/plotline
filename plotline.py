@@ -16,10 +16,144 @@ app = Flask(__name__)
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 # End of opening
 
+# Settings List
+settings = [('narrative',),
+            ('projectname',),
+            ('database',),
+            ('logline',),]
+
+# Home
+@app.route('/')
+def home():
+   return render_template('home.html')
+
+# New Project
+@app.route('/createdb', methods=['post'])
+def createdb():
+   projectname = request.form['projectname']
+   project_name = projectname.replace(" ", "_")
+   database = 'projdbs/' + project_name + '.db'
+   open(database, 'x')
+   connection = sqlite3.connect(database)
+   cursor = connection.cursor()
+   cursor.execute("CREATE TABLE settings (KEY INTEGER UNIQUE,\
+                   VARIABLE TEXT UNIQUE, SETTING TEXT, NNUMBER INTEGER,\
+                   PRIMARY KEY('KEY' AUTOINCREMENT))")
+   connection.commit()
+   cursor.executemany("INSERT INTO settings (VARIABLE) VALUES (?)", (settings))
+   connection.commit()
+   cursor.execute("UPDATE settings SET NNUMBER = ? WHERE VARIABLE == ?",\
+                   (0, 'narrative'))
+   connection.commit()
+   cursor.execute("CREATE TABLE MAIN (KEY INTEGER UNIQUE, CHAPTER INTEGER, SCENE INTEGER, TITLE TEXT UNIQUE, LOCATION TEXT, TAGS TEXT, PRIMARY KEY('KEY'))")
+   connection.commit()
+   cursor.execute("CREATE TABLE SCENE (KEY INTEGER, NARRATIVE TEXT)")
+   connection.commit()
+   site = '/newproject/' + project_name
+   return redirect(site)
+
+@app.route('/newproject/<project_name>')
+def newproject(project_name):
+   projectname = project_name.replace("_", " ")
+   database = 'projdbs/' + project_name + '.db'
+   return render_template('newproject.html',\
+                           projectname=projectname, project_name=project_name,\
+                          database=database)
+
+@app.route('/savesettings', methods=['post'])
+def savesettings():
+   session['projectname'] = request.form['projectname']
+   projectname = session.get('projectname')
+   session['database'] = request.form['database']
+   database = session.get('database')
+   session['logline'] = request.form['logline']
+   logline = session.get('logline')
+   connection = sqlite3.connect(database)
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT VARIABLE FROM settings WHERE KEY is not NULL")
+   variables = cursor.fetchall()
+   for variable in variables:
+      if variable['VARIABLE'] == 'projectname':
+         update = projectname
+         projectname = update
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
+         connection.commit()
+      elif variable['VARIABLE'] == 'logline':
+         update = logline
+         logline = update
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
+         connection.commit()
+      elif variable['VARIABLE'] == 'database':
+         update = database
+         database = update
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
+         connection.commit()
+
+    
+   cursor.execute("SELECT * FROM settings WHERE KEY is not NULL") 
+   narratives = cursor.fetchall() 
+   for narrative in narratives:
+      if narrative['VARIABLE'].startswith('narrative'):
+         NNUMBER = narrative['NNUMBER']
+         nnumberstr = str(NNUMBER)
+
+
+   return render_template('newnarratives.html', projectname=projectname,\
+    logline=logline, database=database, narratives=narratives,\
+        nnumberstr=nnumberstr, NNUMBER=NNUMBER)
+
+
+# Save Narrative
+@app.route('/savenarrative', methods=['post'])
+def savenarrative():
+   projectname = session.get('projectname')
+   #database = request.form['database']
+   database = session.get('database')
+   logline = session.get('logline')
+   newnarrative = request.form['newnarrative']
+   newnarrativenumber = request.form['newnarrativenumber']
+   newnarrativename = 'narrative' + str(newnarrativenumber)
+   connection = sqlite3.connect(database)
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("INSERT INTO settings (VARIABLE, SETTING, NNUMBER)\
+                   VALUES (?, ?, ?)", (newnarrativename, newnarrative,\
+                                        newnarrativenumber))
+   connection.commit()
+   cursor.execute("SELECT * FROM settings WHERE KEY is not NULL") 
+   narratives = cursor.fetchall() 
+   for narrative in narratives:
+      if narrative['VARIABLE'].startswith('narrative'):
+         NNUMBER = narrative['NNUMBER']
+         nnumberstr = str(NNUMBER)
+   return render_template('createnarratives.html', projectname=projectname,\
+                          logline=logline, database=database, \
+                           narratives=narratives, nnumberstr=nnumberstr,\
+                                NNUMBER=NNUMBER)
+
+
+# START PLOTLINE PROPER
+#create config
+@app.route('/createconfig')
+def createconfig():
+    database = session.get('database')
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+    connection.row_factory = sqlite3.Row
+    cursor.execute("SELECT * FROM settings WHERE KEY is not NULL")
+    narratives = cursor.fetchall()
+    for narrative in narratives:
+        if narrative['VARIABLE'] == 'narrative1':
+            session['narrative1'] = narrative['SETTING']
+        elif narrative['VARIABLE'] == 'narrative2':
+        	session['narrative2'] = narrative['SETTING']
 #Config
-database = 'erotic.db'
-narrative1 = 'Prisoners'
-narrative2 = 'Terrorism'
+narrative1 = session.get('narrative1')
+narrative2 = session.get('narrative2')
 narrative3 = 'Liam + Sophia'
 narrative4 = 'Emma is a spy'
 narrative5 = 'Jean is Evil'
@@ -40,24 +174,25 @@ narrative19 = ''
 narrative20 = ''
 
 
-# Home Site
-@app.route('/')
-def home():
-	return "Success"
+         
 
 # Create Scene
 @app.route('/createscene')
 def createscene():
+    database = session.get('database')
+	#connection = sqlite3.connect('projdbs/' +database)
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+    cursor.execute("INSERT or REPLACE into MAIN (SCENE) VALUES (0)")
+    connection.commit()
+    cursor.execute('SELECT SCENE FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
+    [scenenumber] = cursor.fetchone()
+    cursor.execute('SELECT CHAPTER FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
+    [chapternumber] = cursor.fetchone()
+    return render_template('createscene.html', scenenumber=scenenumber, chapternumber=chapternumber)
+    #return database
 
-	connection = sqlite3.connect('projdbs/' + database)
-	cursor = connection.cursor()
-	cursor.execute('SELECT SCENE FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
-	[scenenumber] = cursor.fetchone()
-	cursor.execute('SELECT CHAPTER FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
-	[chapternumber] = cursor.fetchone()
-	return render_template('createscene.html', scenenumber=scenenumber, chapternumber=chapternumber)
-
-@app.route('/savescene', methods=['POST'])
+@app.route('/savescene', methods=['post'])
 def savescene():
 	#Collect Requests
 	title = request.form['TITLE']
@@ -67,7 +202,7 @@ def savescene():
 	tags = request.form['TAGS']
 
 	#Write to DB
-	connection = sqlite3.connect('projdbs/' + database)
+	connection = sqlite3.connect(session.get('database'))
 	cursor = connection.cursor()
 	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
 		VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
@@ -86,7 +221,7 @@ def editscene(KEY):
 	key = str(KEY)
 	scenenumber = 'scene' + str(KEY)
 	import sqlite3
-	connection = sqlite3.connect('projdbs/' + database)
+	connection = sqlite3.connect(session.get('database'))
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM MAIN WHERE KEY = ?", (key,))
@@ -117,7 +252,7 @@ def updatescene(key):
 	
 
 	import sqlite3
-	connection = sqlite3.connect('projdbs/' + database)
+	connection = sqlite3.connect(session.get('database'))
 	cursor = connection.cursor()
 	cursor.execute('UPDATE MAIN SET TITLE = ?, LOCATION = ?, CHAPTER = ?,\
 	 SCENE = ?, TAGS = ? WHERE KEY = ?',\
@@ -136,7 +271,7 @@ def updatescene(key):
 def viewoutline():
 
 	import sqlite3
-	connection = sqlite3.connect('projdbs/' + database)
+	connection = sqlite3.connect(session.get('database'))
 	connection.row_factory = sqlite3.Row
 	cursor = connection.cursor()
 	# Get scene info

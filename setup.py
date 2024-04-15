@@ -36,12 +36,14 @@ def createdb():
    open(database, 'x')
    connection = sqlite3.connect(database)
    cursor = connection.cursor()
-   cursor.execute("CREATE TABLE settings (KEY INTEGER UNIQUE, VARIABLE TEXT UNIQUE,\
-                   SETTING TEXT, NNUMBER INTEGER, PRIMARY KEY('KEY' AUTOINCREMENT))")
+   cursor.execute("CREATE TABLE settings (KEY INTEGER UNIQUE,\
+                   VARIABLE TEXT UNIQUE, SETTING TEXT, NNUMBER INTEGER,\
+                   PRIMARY KEY('KEY' AUTOINCREMENT))")
    connection.commit()
    cursor.executemany("INSERT INTO settings (VARIABLE) VALUES (?)", (settings))
    connection.commit()
-   cursor.execute("UPDATE settings SET NNUMBER = ? WHERE VARIABLE == ?", (0, 'narrative'))
+   cursor.execute("UPDATE settings SET NNUMBER = ? WHERE VARIABLE == ?",\
+                   (0, 'narrative'))
    connection.commit()
    
    site = '/newproject/' + project_name
@@ -69,17 +71,20 @@ def savesettings():
       if variable['VARIABLE'] == 'projectname':
          update = projectname
          projectname = update
-         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?", (update, variable['VARIABLE'],))
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
          connection.commit()
       elif variable['VARIABLE'] == 'logline':
          update = logline
          logline = update
-         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?", (update, variable['VARIABLE'],))
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
          connection.commit()
       elif variable['VARIABLE'] == 'database':
          update = database
          database = update
-         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?", (update, variable['VARIABLE'],))
+         cursor.execute("UPDATE settings SET SETTING = ? WHERE VARIABLE = ?",\
+                         (update, variable['VARIABLE'],))
          connection.commit()
 
     
@@ -92,7 +97,8 @@ def savesettings():
 
 
    return render_template('newnarratives.html', projectname=projectname,\
-    logline=logline, database=database, narratives=narratives, nnumberstr=nnumberstr, NNUMBER=NNUMBER)
+    logline=logline, database=database, narratives=narratives,\
+        nnumberstr=nnumberstr, NNUMBER=NNUMBER)
 
 
 # Save Narrative
@@ -107,7 +113,9 @@ def savenarrative():
    connection = sqlite3.connect(database)
    connection.row_factory = sqlite3.Row
    cursor = connection.cursor()
-   cursor.execute("INSERT INTO settings (VARIABLE, SETTING, NNUMBER) VALUES (?, ?, ?)", (newnarrativename, newnarrative, newnarrativenumber))
+   cursor.execute("INSERT INTO settings (VARIABLE, SETTING, NNUMBER)\
+                   VALUES (?, ?, ?)", (newnarrativename, newnarrative,\
+                                        newnarrativenumber))
    connection.commit()
    cursor.execute("SELECT * FROM settings WHERE KEY is not NULL") 
    narratives = cursor.fetchall() 
@@ -116,8 +124,9 @@ def savenarrative():
          NNUMBER = narrative['NNUMBER']
          nnumberstr = str(NNUMBER)
    return render_template('createnarratives.html', projectname=projectname,\
-                          logline=logline, database=database, narratives=narratives,\
-                             nnumberstr=nnumberstr, NNUMBER=NNUMBER)
+                          logline=logline, database=database, \
+                           narratives=narratives, nnumberstr=nnumberstr,\
+                                NNUMBER=NNUMBER)
 
 
 # Close Flask

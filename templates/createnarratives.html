@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+...Create Narrative
+
 <form action="/savenarrative" method="post">
     PROJECT NAME: <br>
     <textarea name="projectname" cols="20" rows="1">{{ projectname }}</textarea> <br>
@@ -9,8 +14,18 @@
     <br>
     {% for narrative in narratives: %}
     {% if narrative['VARIABLE'].startswith('narrative') and narrative['NNUMBER'] > 0 %}
-    {{ narrative['NNUMBER'] }}.{{ narrative['SETTING'] }} <br>
+    {% if narrative['VARIABLE'] == 'narrative1' %}
+    {% set color = 'narrative1' %}
+    {% elif narrative['VARIABLE'] == 'narrative2' %}
+    {% set color = 'narrative2' %}
+    {% elif narrative['VARIABLE'] == 'narrative3' %}
+    {% set color = 'narrative3' %}
+    {% elif narrative['VARIABLE'] == 'narrative4' %}
+    {% set color = 'narrative4' %}
+    {% endif %}
     
+    <span class="{{ color }}"> {{ narrative['NNUMBER'] }}.  {{ narrative['SETTING'] }} </span> <br>
+
     {% endif %}
 
     {% endfor %} 
@@ -18,5 +33,10 @@
     <textarea name='newnarrativenumber' cols='2' rows='1'>{{ newnarrativenumber }}</textarea>  
     <textarea input name="newnarrative"></textarea> <br>
 
-    <input name="form" value="Create Narrative" type="submit">
+    <input name="button" value="Create Narrative" type="submit">
 </form>
+<a href="/createscene">
+    <button>Go to Project</button>
+  </a>
+
+{% endblock %}

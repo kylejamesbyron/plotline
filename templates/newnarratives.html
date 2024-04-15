@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+...New Narrative
+
 <form action="/savenarrative" method="post">
     PROJECT NAME: <br>
     <textarea name="projectname" cols="20" rows="1">{{ projectname }}</textarea> <br>
@@ -19,3 +24,5 @@
 
     <input name="form" value="Create Narrative" type="submit">
 </form>
+
+{% endblock %}
