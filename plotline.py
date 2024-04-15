@@ -26,13 +26,14 @@ settings = [('narrative',),
 @app.route('/')
 def home():
    return render_template('home.html')
-
+   
 # New Project
 @app.route('/createdb', methods=['post'])
 def createdb():
    projectname = request.form['projectname']
    project_name = projectname.replace(" ", "_")
-   database = 'projdbs/' + project_name + '.db'
+   session['database'] = 'projdbs/' + project_name + '.db'
+   database = session.get('database')
    open(database, 'x')
    connection = sqlite3.connect(database)
    cursor = connection.cursor()
@@ -49,6 +50,20 @@ def createdb():
    connection.commit()
    cursor.execute("CREATE TABLE SCENE (KEY INTEGER, NARRATIVE TEXT)")
    connection.commit()
+   #Create Config
+   database = session.get('database')
+   connection = sqlite3.connect(database)
+   cursor = connection.cursor()
+   connection.row_factory = sqlite3.Row
+   cursor.execute("SELECT * FROM settings WHERE KEY is not NULL")
+   narratives = cursor.fetchall()
+   for narrative in narratives:
+      if narrative['VARIABLE'] == 'narrative1':
+         newnarrative = narrative['SETTING']
+         session['narrative1'] = narrative
+      elif narrative['VARIABLE'] == 'narrative2':
+        	session['narrative2'] = narrative['SETTING']
+
    site = '/newproject/' + project_name
    return redirect(site)
 
@@ -137,23 +152,10 @@ def savenarrative():
 
 
 # START PLOTLINE PROPER
-#create config
-@app.route('/createconfig')
-def createconfig():
-    database = session.get('database')
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
-    connection.row_factory = sqlite3.Row
-    cursor.execute("SELECT * FROM settings WHERE KEY is not NULL")
-    narratives = cursor.fetchall()
-    for narrative in narratives:
-        if narrative['VARIABLE'] == 'narrative1':
-            session['narrative1'] = narrative['SETTING']
-        elif narrative['VARIABLE'] == 'narrative2':
-        	session['narrative2'] = narrative['SETTING']
+
 #Config
-narrative1 = session.get('narrative1')
-narrative2 = session.get('narrative2')
+#narrative1 = session.get('Narrative1')
+#narrative2 = session.get('Narrative2')
 narrative3 = 'Liam + Sophia'
 narrative4 = 'Emma is a spy'
 narrative5 = 'Jean is Evil'
@@ -218,18 +220,20 @@ def savescene():
 # Edit Scene
 @app.route('/editscene/<KEY>')
 def editscene(KEY):
-	key = str(KEY)
-	scenenumber = 'scene' + str(KEY)
-	import sqlite3
-	connection = sqlite3.connect(session.get('database'))
-	connection.row_factory = sqlite3.Row
-	cursor = connection.cursor()
-	cursor.execute("SELECT * FROM MAIN WHERE KEY = ?", (key,))
-	rows = cursor.fetchall()
-	#maybe move the following line
-	cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
-	beat = cursor.fetchall()
-	return render_template('editscene.html', rows=rows, key=key, beat=beat,\
+   key = str(KEY)
+   scenenumber = 'scene' + str(KEY)
+   import sqlite3
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT * FROM MAIN WHERE KEY = ?", (key,))
+   rows = cursor.fetchall()
+   #maybe move the following line
+   cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
+   beat = cursor.fetchall()
+   narrative1 = session.get(narrative1)
+   narrative2 = session.get(narrative2)
+   return render_template('editscene.html', rows=rows, key=key, beat=beat,\
 	 scenenumber=scenenumber, narrative1=narrative1, narrative2=narrative2,\
 	  narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
 	  narrative6=narrative6, narrative7=narrative7, narrative8=narrative8,\
