@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>File Upload</title>
+  </head>
+  <body>
+    Choose Project
+    <form method="POST" action="/chooseproject">
+      <select name="openproject" id="openproject">
+      <option value="file">file</option>
+      {% for file in files %}
+      <option value="{{ file }}">{{ file}}</option>
+      {% endfor %}
+      </select>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+  </body>
+</html>

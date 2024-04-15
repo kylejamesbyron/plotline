@@ -50,19 +50,7 @@ def createdb():
    connection.commit()
    cursor.execute("CREATE TABLE SCENE (KEY INTEGER, NARRATIVE TEXT)")
    connection.commit()
-   #Create Config
-   database = session.get('database')
-   connection = sqlite3.connect(database)
-   cursor = connection.cursor()
-   connection.row_factory = sqlite3.Row
-   cursor.execute("SELECT * FROM settings WHERE KEY is not NULL")
-   narratives = cursor.fetchall()
-   for narrative in narratives:
-      if narrative['VARIABLE'] == 'narrative1':
-         newnarrative = narrative['SETTING']
-         session['narrative1'] = narrative
-      elif narrative['VARIABLE'] == 'narrative2':
-        	session['narrative2'] = narrative['SETTING']
+   
 
    site = '/newproject/' + project_name
    return redirect(site)
@@ -115,8 +103,7 @@ def savesettings():
       if narrative['VARIABLE'].startswith('narrative'):
          NNUMBER = narrative['NNUMBER']
          nnumberstr = str(NNUMBER)
-
-
+         
    return render_template('newnarratives.html', projectname=projectname,\
     logline=logline, database=database, narratives=narratives,\
         nnumberstr=nnumberstr, NNUMBER=NNUMBER)
@@ -145,38 +132,88 @@ def savenarrative():
       if narrative['VARIABLE'].startswith('narrative'):
          NNUMBER = narrative['NNUMBER']
          nnumberstr = str(NNUMBER)
+#Create Config
+         if narrative['VARIABLE'].endswith('narrative1'):
+            narrative = narrative['SETTING']
+            session['narrative1'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative2':
+            narrative = narrative['SETTING']
+            session['narrative2'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative3':
+            narrative = narrative['SETTING']
+            session['narrative3'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative4':
+            narrative = narrative['SETTING']
+            session['narrative4'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative5':
+            narrative = narrative['SETTING']
+            session['narrative5'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative6':
+            narrative = narrative['SETTING']
+            session['narrative6'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative7':
+            narrative = narrative['SETTING']
+            session['narrative7'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative8':
+            narrative = narrative['SETTING']
+            session['narrative8'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative9':
+            narrative = narrative['SETTING']
+            session['narrative9'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative10':
+            narrative = narrative['SETTING']
+            session['narrative10'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative11':
+            narrative = narrative['SETTING']
+            session['narrative11'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative12':
+            narrative = narrative['SETTING']
+            session['narrative12'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative13':
+            narrative = narrative['SETTING']
+            session['narrative13'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative14':
+            narrative = narrative['SETTING']
+            session['narrative14'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative15':
+            narrative = narrative['SETTING']
+            session['narrative15'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative16':
+            narrative = narrative['SETTING']
+            session['narrative16'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative17':
+            narrative = narrative['SETTING']
+            session['narrative17'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative18':
+            narrative = narrative['SETTING']
+            session['narrative18'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative19':
+            narrative = narrative['SETTING']
+            session['narrative19'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative20':
+            narrative = narrative['SETTING']
+            session['narrative20'] = str(narrative)
+         
+ #  return session.get('narrative1')
    return render_template('createnarratives.html', projectname=projectname,\
                           logline=logline, database=database, \
                            narratives=narratives, nnumberstr=nnumberstr,\
                                 NNUMBER=NNUMBER)
 
+# Open Project
+@app.route('/openproject')
+def openproject():
+   files = os.listdir('/home/maisom/Documents/GitHub/plotline/projdbs')
+   return render_template('openproject.html', files=files)
+@app.route('/chooseproject', methods=['post'])
+def chooseproject():
+   database = request.form["openproject"]
+   session['database'] = 'projdbs/' + database
+   return redirect('/viewoutline')
+
 
 # START PLOTLINE PROPER
-
-#Config
-#narrative1 = session.get('Narrative1')
-#narrative2 = session.get('Narrative2')
-narrative3 = 'Liam + Sophia'
-narrative4 = 'Emma is a spy'
-narrative5 = 'Jean is Evil'
-narrative6 = 'Elijah Investigates'
-narrative7 = 'Emma is Dead'
-narrative8 = 'Rachel + Ben'
-narrative9 = 'Ben + Sophia'
-narrative10 = 'Rachel needs Bens Help'
-narrative11 = 'Sophia Investigates Repairs'
-narrative12 = 'Liam Investigates Terrorism'
-narrative13 = 'Jean + Sophia'
-narrative14 = 'Emma + Jean'
-narrative15 = 'The ONHR'
-narrative16 = 'Special'
-narrative17 = ''
-narrative18 = ''
-narrative19 = ''
-narrative20 = ''
-
-
-         
+     
 
 # Create Scene
 @app.route('/createscene')
@@ -185,14 +222,15 @@ def createscene():
 	#connection = sqlite3.connect('projdbs/' +database)
     connection = sqlite3.connect(database)
     cursor = connection.cursor()
-    cursor.execute("INSERT or REPLACE into MAIN (SCENE) VALUES (0)")
+    cursor.execute("INSERT or REPLACE into MAIN (CHAPTER, SCENE, TITLE) VALUES (1, 0, 'blank')")
     connection.commit()
     cursor.execute('SELECT SCENE FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
     [scenenumber] = cursor.fetchone()
+    scenenumberint = str(scenenumber)
     cursor.execute('SELECT CHAPTER FROM MAIN order by CHAPTER, SCENE DESC LIMIT 1')
     [chapternumber] = cursor.fetchone()
     return render_template('createscene.html', scenenumber=scenenumber, chapternumber=chapternumber)
-    #return database
+    #return scenenumberint
 
 @app.route('/savescene', methods=['post'])
 def savescene():
@@ -231,8 +269,26 @@ def editscene(KEY):
    #maybe move the following line
    cursor.execute('SELECT * FROM SCENE WHERE ? != "NULL"', (scenenumber,))
    beat = cursor.fetchall()
-   narrative1 = session.get(narrative1)
-   narrative2 = session.get(narrative2)
+   narrative1 = session.get('narrative1')
+   narrative2 = session.get('narrative2')
+   narrative3 = session.get('narrative3')
+   narrative4 = session.get('narrative4')
+   narrative5 = session.get('narrative5')
+   narrative6 = session.get('narrative6')
+   narrative7 = session.get('narrative7')
+   narrative8 = session.get('narrative8')
+   narrative9 = session.get('narrative9')
+   narrative10 = session.get('narrative10')
+   narrative11 = session.get('narrative11')
+   narrative12 = session.get('narrative12')
+   narrative13 = session.get('narrative13')
+   narrative14 = session.get('narrative14')
+   narrative15 = session.get('narrative15')
+   narrative16 = session.get('narrative16')
+   narrative17 = session.get('narrative17')
+   narrative18 = session.get('narrative18')
+   narrative19 = session.get('narrative19')
+   narrative20 = session.get('narrative20')
    return render_template('editscene.html', rows=rows, key=key, beat=beat,\
 	 scenenumber=scenenumber, narrative1=narrative1, narrative2=narrative2,\
 	  narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
@@ -273,27 +329,45 @@ def updatescene(key):
 
 @app.route('/viewoutline')
 def viewoutline():
-
-	import sqlite3
-	connection = sqlite3.connect(session.get('database'))
-	connection.row_factory = sqlite3.Row
-	cursor = connection.cursor()
-	# Get scene info
-	cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL ORDER BY\
-	 CHAPTER, SCENE' )
-	info = cursor.fetchall()
-	# Get scene beats
-	cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
-	beats = cursor.fetchall()
-	
-	return render_template('viewoutline.html', info=info,\
-						   beats=beats, narrative1=narrative1, narrative2=narrative2,\
-	  narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
-	  narrative6=narrative6, narrative7=narrative7, narrative8=narrative8,\
-	  narrative9=narrative9, narrative10=narrative10, narrative11=narrative11,\
-	  narrative12=narrative12, narrative13=narrative13, narrative14=narrative14,\
-	  narrative15=narrative15, narrative16=narrative16, narrative17=narrative17,\
-	  narrative18=narrative18, narrative19=narrative19, narrative20=narrative20)
+   narrative1 = session.get('narrative1')
+   narrative2 = session.get('narrative2')
+   narrative3 = session.get('narrative3')
+   narrative4 = session.get('narrative4')
+   narrative5 = session.get('narrative5')
+   narrative6 = session.get('narrative6')
+   narrative7 = session.get('narrative7')
+   narrative8 = session.get('narrative8')
+   narrative9 = session.get('narrative9')
+   narrative10 = session.get('narrative10')
+   narrative11 = session.get('narrative11')
+   narrative12 = session.get('narrative12')
+   narrative13 = session.get('narrative13')
+   narrative14 = session.get('narrative14')
+   narrative15 = session.get('narrative15')
+   narrative16 = session.get('narrative16')
+   narrative17 = session.get('narrative17')
+   narrative18 = session.get('narrative18')
+   narrative19 = session.get('narrative19')
+   narrative20 = session.get('narrative20')
+   import sqlite3
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   # Get scene info
+   cursor.execute('SELECT * FROM MAIN WHERE TITLE is not NULL ORDER BY\
+    CHAPTER, SCENE' )
+   info = cursor.fetchall()
+   # Get scene beats
+   cursor.execute('SELECT * FROM SCENE WHERE KEY != "NULL"')
+   beats = cursor.fetchall()
+   return render_template('viewoutline.html', info=info,\
+   					   beats=beats, narrative1=narrative1, narrative2=narrative2,\
+     narrative3=narrative3, narrative4=narrative4, narrative5=narrative5,\
+     narrative6=narrative6, narrative7=narrative7, narrative8=narrative8,\
+     narrative9=narrative9, narrative10=narrative10, narrative11=narrative11,\
+     narrative12=narrative12, narrative13=narrative13, narrative14=narrative14,\
+     narrative15=narrative15, narrative16=narrative16, narrative17=narrative17,\
+     narrative18=narrative18, narrative19=narrative19, narrative20=narrative20)
 
 #Edit Narratives
 
