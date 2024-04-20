@@ -19,6 +19,7 @@
 <div style="text-align: left;">
 
 {% for row in info %}
+{% if row['SCENE'] > 0 %}
 
 SC: {{row['CHAPTER']}}.{{row['SCENE']}}: {{row['TITLE']}}<a href="\editscene\{{row['KEY']}}">[edit]</a><br>
 LOC: {{row['LOCATION']}}<br>
@@ -78,6 +79,7 @@ BEATS:<br>
 
 <br>
 <br>
+{% endif %}
 {% endfor %}
 
 </div>

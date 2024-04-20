@@ -234,26 +234,35 @@ def createscene():
 
 @app.route('/savescene', methods=['post'])
 def savescene():
-	#Collect Requests
-	title = request.form['TITLE']
-	location = request.form['LOCATION']
-	chapter = request.form['CH#']
-	scene = request.form['SC#']
-	tags = request.form['TAGS']
+   #Collect Requests
+   title = request.form['TITLE']
+   location = request.form['LOCATION']
+   chapter = request.form['CH#']
+   scene = request.form['SC#']
+   tags = request.form['TAGS']
 
 	#Write to DB
-	connection = sqlite3.connect(session.get('database'))
-	cursor = connection.cursor()
-	cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
-		VALUES (?, ?, ?, ?, ?)", (title, location, chapter,scene, tags,))
-	connection.commit()
-	cursor.execute('SELECT KEY FROM MAIN WHERE TITLE = ?', (title,))
-	KEY = cursor.fetchone()[0]
-	site = 'editscene/' + str(KEY)
-	scenenumber = 'scene' + str(KEY)
-	cursor.execute('ALTER TABLE SCENE ADD COLUMN {} TEXT'.format(scenenumber),)
-	connection.commit()
-	return redirect(site)
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT SCENE FROM main")
+   scenelist = cursor.fetchall()
+   for oldscene in scenelist:
+      if oldscene['SCENE'] == int(scene):
+         cursor.execute("UPDATE main SET scene = scene + 1 WHERE scene >= ?", (scene))
+   
+      
+
+   cursor.execute("INSERT into MAIN (TITLE, LOCATION, CHAPTER, SCENE, TAGS) \
+		VALUES (?, ?, ?, ?, ?)", (title, location, chapter, scene, tags,))
+   connection.commit()
+   cursor.execute('SELECT KEY FROM MAIN WHERE TITLE = ?', (title,))
+   KEY = cursor.fetchone()[0]
+   site = 'editscene/' + str(KEY)
+   scenenumber = 'scene' + str(KEY)
+   cursor.execute('ALTER TABLE SCENE ADD COLUMN {} TEXT'.format(scenenumber),)
+   connection.commit()
+   return redirect(site)
 
 # Edit Scene
 @app.route('/editscene/<KEY>')
