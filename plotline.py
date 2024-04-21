@@ -379,7 +379,17 @@ def viewoutline():
      narrative18=narrative18, narrative19=narrative19, narrative20=narrative20)
 
 #Edit Narratives
+@app.route('/addnarrative')
+def addnarratives():
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT NNUMBER FROM settings ORDER BY NNUMBER DESC LIMIT 1")
+   nnumber = cursor.fetchone()
 
+
+
+   return render_template('editnarrative.html', nnumber=nnumber)
 # Close Flask
 if __name__ == '__main__':
    app.run(debug = True, host="0.0.0.0" )

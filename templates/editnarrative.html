@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends base.html %}
+{% extends 'base.html' %}
 {%  block content %}
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,13 @@
 </head>
 <body>
 
+<form action="/savenarrative" method="post">
+{% set newnarrativenumber = (nnumber['NNUMBER'] + 1) %}
+<textarea name='newnarrativenumber' cols='2' rows='1'>{{ newnarrativenumber }}</textarea>  
+<textarea input name="newnarrative"></textarea> <br>
+<input name="button" value="Create Narrative" type="submit">
 
-
-
+</form>
 </body>
 </html>
 
