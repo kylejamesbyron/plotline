@@ -84,7 +84,9 @@
 
   {% endif %}
 
-  <span class="{{ color }}"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span><br>
+  <span class="{{ color }}"> - {{row[scenenumber]}} -- {{row['NARRATIVE']}}</span>
+  {% set site = "/editbeat/" + scenenumber + "/" + row['BEAT']|string %}
+  <a href="{{ site }}">[edit]</a><br>
   
 
   {% endif %} 

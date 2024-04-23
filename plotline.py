@@ -48,7 +48,7 @@ def createdb():
    connection.commit()
    cursor.execute("CREATE TABLE MAIN (KEY INTEGER UNIQUE, CHAPTER INTEGER, SCENE INTEGER, TITLE TEXT UNIQUE, LOCATION TEXT, TAGS TEXT, PRIMARY KEY('KEY'))")
    connection.commit()
-   cursor.execute("CREATE TABLE SCENE (KEY INTEGER, NARRATIVE TEXT)")
+   cursor.execute("CREATE TABLE SCENE (BEAT INTEGER, KEY INTEGER, NARRATIVE TEXT, PRIMARY KEY('BEAT' AUTOINCREMENT))")
    connection.commit()
    
 
@@ -209,6 +209,76 @@ def openproject():
 def chooseproject():
    database = request.form["openproject"]
    session['database'] = 'projdbs/' + database
+   connection = sqlite3.connect(session['database'])
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT * FROM settings where KEY is not null")
+   narratives = cursor.fetchall()
+   for narrative in narratives:
+      if narrative['VARIABLE'].startswith('narrative'):
+         NNUMBER = narrative['NNUMBER']
+         nnumberstr = str(NNUMBER)
+#Create Config
+         if narrative['VARIABLE'].endswith('narrative1'):
+            narrative = narrative['SETTING']
+            session['narrative1'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative2':
+            narrative = narrative['SETTING']
+            session['narrative2'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative3':
+            narrative = narrative['SETTING']
+            session['narrative3'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative4':
+            narrative = narrative['SETTING']
+            session['narrative4'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative5':
+            narrative = narrative['SETTING']
+            session['narrative5'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative6':
+            narrative = narrative['SETTING']
+            session['narrative6'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative7':
+            narrative = narrative['SETTING']
+            session['narrative7'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative8':
+            narrative = narrative['SETTING']
+            session['narrative8'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative9':
+            narrative = narrative['SETTING']
+            session['narrative9'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative10':
+            narrative = narrative['SETTING']
+            session['narrative10'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative11':
+            narrative = narrative['SETTING']
+            session['narrative11'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative12':
+            narrative = narrative['SETTING']
+            session['narrative12'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative13':
+            narrative = narrative['SETTING']
+            session['narrative13'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative14':
+            narrative = narrative['SETTING']
+            session['narrative14'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative15':
+            narrative = narrative['SETTING']
+            session['narrative15'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative16':
+            narrative = narrative['SETTING']
+            session['narrative16'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative17':
+            narrative = narrative['SETTING']
+            session['narrative17'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative18':
+            narrative = narrative['SETTING']
+            session['narrative18'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative19':
+            narrative = narrative['SETTING']
+            session['narrative19'] = str(narrative)
+         elif narrative['VARIABLE'] == 'narrative20':
+            narrative = narrative['SETTING']
+            session['narrative20'] = str(narrative)
    return redirect('/viewoutline')
 
 
@@ -386,10 +456,30 @@ def addnarratives():
    cursor = connection.cursor()
    cursor.execute("SELECT NNUMBER FROM settings ORDER BY NNUMBER DESC LIMIT 1")
    nnumber = cursor.fetchone()
-
-
-
    return render_template('editnarrative.html', nnumber=nnumber)
+
+@app.route('/editbeat/<SCENE>/<BEAT>')
+def editbeat(SCENE, BEAT):
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   cursor.execute("SELECT * FROM SCENE WHERE BEAT == ?", (BEAT)) 
+   beat = cursor.fetchall()
+   return render_template('editbeat.html', beat=beat, SCENE=SCENE)
+
+@app.route('/savebeat/<SCENE>/<BEAT>', methods=['post', 'get'])
+def savebeat(SCENE, BEAT):
+   connection = sqlite3.connect(session.get('database'))
+   connection.row_factory = sqlite3.Row
+   cursor = connection.cursor()
+   newbeat = request.form['newbeat']
+   
+   cursor.execute("UPDATE SCENE SET {} = ? WHERE BEAT == ?".format(SCENE), (newbeat, BEAT))
+   connection.commit()
+   return redirect('/viewoutline')
+
+   
+
 # Close Flask
 if __name__ == '__main__':
    app.run(debug = True, host="0.0.0.0" )

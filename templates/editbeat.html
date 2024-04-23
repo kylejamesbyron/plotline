@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+... Edit beat <br>
+
+
+
+{% for beat in beat %}
+{% set site = "savebeat/" + SCENE + "/" + beat['BEAT']|string %}
+<form action="/{{ site }}" methods="post">
+
+<textarea name="newbeat">{{ beat[SCENE] }}</textarea>
+<input name="form" value="Save" type="submit">
+<select name="NARRATIVE" id="NARRATIVE">
+    <option value="">NARRATIVE</option>
+    <option class="narrative1" value="{{narrative1}}">{{narrative1}}</option>
+    <option class="narrative2" value="{{narrative2}}">{{narrative2}}</option>
+    <option class="narrative3" value="{{narrative3}}">{{narrative3}}</option>
+    <option class="narrative4" value="{{narrative4}}">{{narrative4}}</option>
+    <option class="narrative5" value="{{narrative5}}">{{narrative5}}</option>
+    <option class="narrative6" value="{{narrative6}}">{{narrative6}}</option>
+    <option class="narrative7" value="{{narrative7}}">{{narrative7}}</option>
+    <option class="narrative8" value="{{narrative8}}">{{narrative8}}</option>
+    <option class="narrative9" value="{{narrative9}}">{{narrative9}}</option>
+    <option class="narrative10" value="{{narrative10}}">{{narrative10}}</option>
+    <option class="narrative11" value="{{narrative11}}">{{narrative11}}</option>
+    <option class="narrative12" value="{{narrative12}}">{{narrative12}}</option>
+    <option class="narrative13" value="{{narrative13}}">{{narrative13}}</option>
+    <option class="narrative14" value="{{narrative14}}">{{narrative14}}</option>
+    <option class="narrative15" value="{{narrative15}}">{{narrative15}}</option>
+    <option class="narrative16" value="{{narrative16}}">{{narrative16}}</option>
+    <option class="narrative17" value="{{narrative17}}">{{narrative17}}</option>
+    <option class="narrative18" value="{{narrative18}}">{{narrative18}}</option>
+    <option class="narrative19" value="{{narrative19}}">{{narrative19}}</option>
+    <option class="narrative20" value="{{narrative20}}">{{narrative20}}</option>
+    </select>
+</form>
+{% endfor %}
+
+
+
+{% endblock %}
